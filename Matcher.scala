@@ -6,6 +6,8 @@ object Matcher
 {
     def findProduct( dictionary : ProductDictionary, listing : Listing ) : Option[Product] = 
     {
+	ProgressDisplay.tick()
+
 	val optManufacturer = findManufacturer( listing.manufacturer, dictionary.getManufacturers )
 	if (optManufacturer.isEmpty)
 	    return None

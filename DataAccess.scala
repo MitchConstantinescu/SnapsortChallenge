@@ -5,8 +5,6 @@ import com.twitter.json.Json
 
 object DataAccess {
 
-    var lineNo = 0
-
     def getListings(fileName : String) : Array[Listing] =
     {
         val lines = scala.io.Source.fromFile(fileName)("UTF-8").getLines
@@ -28,9 +26,8 @@ object DataAccess {
 
     def parseListing(line : String ) : Option[Listing] =
     {
-	lineNo = lineNo + 1
-	if (lineNo % 100 == 0)
-	    println(lineNo)
+	ProgressDisplay.tick()
+
 	val parsedLine = scala.util.parsing.json.JSON.parseFull(line)
 	return parsedLine.map(pl => {
                 val typedLine = pl.asInstanceOf[Map[String,Any]]
